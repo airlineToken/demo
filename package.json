@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy": "ng build --prod --base-href https://airlinetoken.github.io/demo && ngh --repo=https://airlinetoken:amadeus360@github.com/airlineToken/demo"
+    "deploy": "ng build --prod --base-href demo && ngh --repo=https://airlinetoken:amadeus360@github.com/airlineToken/demo --branch=master"
   },
   "private": true,
   "dependencies": {
