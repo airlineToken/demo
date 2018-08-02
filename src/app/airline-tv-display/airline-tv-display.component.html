@@ -1,12 +1,12 @@
-<div class="queue-display" id="queueDisplay">
-  <div id="row headerRow">
-      <div class="col tokenId">Token ID</div>
-      <div class="col waitTime">Wait Time</div>
-      <div class="col counterNumber">Counter Number</div>  
+<div class="container-fluid queue-display">
+  <div class="row headerRow">
+      <span class="col-xs-3">Token ID</span>
+      <span class="col-xs-3">PNR</span>
+      <span class="col-xs-6">Name</span>
   </div>
-  <div class="row passengerRecord" *ngFor="let record of records">
-      <div class="col tokenId">{{record.recLoc}}</div>
-      <div class="col waitTime">{{record.email}}</div>
-      <div class="col counterNumber">12</div>      
+  <div class="row" *ngFor="let record of queue.queue">
+      <span class="col-xs-3">{{record.rank}}</span>
+      <span class="col-xs-3">{{record.recLoc}}</span>
+      <span class="col-xs-6">{{passengers[record.recLoc].lastName}}, {{passengers[record.recLoc].firstName}}</span>
   </div>
 </div>

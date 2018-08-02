@@ -1,13 +1,9 @@
-#headerRow{
-    width:100%
-}
-
-.col{
-    width:33%;
-    float:left;
-}
-
 .queue-display{
-    box-align:center;
-    width:70%;
+    text-align:center;
+    max-width: 30em;
+    margin-top: 2em;
+}
+
+.headerRow {
+  background-color: #c2c2c2;
 }
