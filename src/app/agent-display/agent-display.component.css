@@ -1,0 +1,47 @@
+.agent-display {
+  text-align: center;
+  max-width: 30em;
+}
+
+.header {
+  padding: 1em 0em;
+}
+
+.text-large {
+  font-size: 2em;
+}
+
+.text-medium {
+  font-size: 1.5em;
+}
+
+.counter-name {
+  background-color: #03A9F4;
+}
+
+.servicing {
+  background-color: #2196F3;
+}
+
+.passenger-details {
+  text-align: left;
+  padding: 0em 1em;
+}
+
+.actions {
+  line-height: 4em;
+}
+
+.actions:hover {
+  color: #FFC107;
+}
+
+.done {
+  background-color: #4CAF50;
+  color: #FFFFFF;
+  line-height: 4em;
+}
+
+.icon-green{background-color: #4CAF50; color: #FFFFFF;}
+.icon-orange{background-color: #FF5722; color: #FFFFFF;}
+.icon-grey{background-color: #607D8B; color: #FFFFFF;}

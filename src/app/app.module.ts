@@ -27,7 +27,7 @@ const appRoutes: Routes = [
     pathMatch: 'full'
   },
   {
-    path:'agentDisplay',
+    path:'agentDisplay/:counterName',
     component: AgentDisplayComponent
   }
 ];

@@ -1,3 +1,49 @@
-<p>
-  agent-display works!
-</p>
+<div class="container-fluid agent-display">
+
+  <div class="row counter-name header">
+    <span>COUNTER </span><span class="text-medium">{{counterName}}</span>
+  </div>
+
+  <div class="row servicing header" *ngIf="currentPassenger != null">
+    <span>NOW SERVICING</span>
+  </div>
+
+  <div *ngIf="currentPassenger == null">
+    <div *ngIf="!queueCleared">
+      <div class="row">Getting passengers data...</div>
+      <div class="row"><img src="assets/load.gif"  /></div>
+    </div>
+
+    <div *ngIf="queueCleared">
+      <div class="row text-medium done">All passengers have been processed.</div>
+    </div>
+  </div>
+
+  <div class="row header " *ngIf="currentPassenger != null">
+    <div class="passenger-details">
+      <div class="row">
+        <span class="col-xs-10 text-large">{{currentPassenger.lastName}}, {{currentPassenger.firstName}}</span>
+        <span class="col-xs-2 text-large">{{currentPassenger.rank}}</span>
+      </div>
+      <div class="row">
+        <span class="col-xs-6 text-medium">{{currentPassenger.recLoc}}</span>
+        <span class="col-xs-2 text-medium">{{currentPassenger.flight[0].dep_airport}}</span>
+        <span class="col-xs-2 glyphicon glyphicon-arrow-right text-medium" style="text-align:center;"></span>
+        <span class="col-xs-2 text-medium">{{currentPassenger.flight[0].arr_airport}}</span>
+      </div>
+    </div>
+  </div>
+
+    <div class="row  header" *ngIf="currentPassenger != null">
+      <span class="actions icon-green col-xs-4 text-large glyphicon glyphicon-ok" (click)="serviced()"></span>
+      <span class="actions icon-orange col-xs-4 text-large glyphicon glyphicon-time" (click)="noshow()"></span>
+      <span class="actions icon-grey col-xs-4 text-large glyphicon glyphicon-share-alt"></span>
+    </div>
+    <div class="row" *ngIf="currentPassenger != null">
+      <span class="col-xs-4">SERVICED</span>
+      <span class="col-xs-4">NO-SHOW</span>
+      <span class="col-xs-4">TRANSFER</span>
+    </div>
+
+
+</div>

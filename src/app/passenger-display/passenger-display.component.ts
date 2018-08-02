@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit  } from '@angular/core';
 import { MongolabService } from '../mongolab.service';
 import { Observable} from 'rxjs/Rx';
 
@@ -14,13 +14,13 @@ export class PassengerDisplayComponent implements OnInit {
   recLoc = '';
   passengerDetails: any = {};
   queue: any = {};
-  currentlyServedRank = '?';
   unknownPnr: boolean = false;
+  counterName: null;
 
   constructor(private mongoService: MongolabService, private route: ActivatedRoute) {}
 
   refreshPassengerDetails() {
-    this.mongoService.getPassengerDetails().subscribe(data => {
+    this.mongoService.getPassengerDetails().subscribe((data: any) => {
         let filtered = data.filter(pax => {
           return pax.recLoc === this.recLoc;
         });
@@ -43,6 +43,14 @@ export class PassengerDisplayComponent implements OnInit {
   refreshQueueDetails() {
     this.mongoService.getQueueDetails().subscribe(data => {
       this.queue = data[0];
+
+      this.counterName = null;
+      // Update counterName?
+      for (let i = 0; i < this.queue.currentlyServed.length; ++i) {
+        if (this.queue.currentlyServed[i].recLoc === this.recLoc) {
+            this.counterName = this.queue.currentlyServed[i].counterName;
+        }
+      }
     });
   }
 
@@ -69,7 +77,7 @@ export class PassengerDisplayComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe( params => {
       this.recLoc = params.recLoc;
-    );
+    });
     this.refreshQueueDetails();
     this.refreshPassengerDetails();
     Observable.interval(5000).subscribe(data => {

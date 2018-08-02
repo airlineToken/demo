@@ -10,8 +10,8 @@ import { Observable} from 'rxjs/Rx';
 })
 export class AirlineTvDisplayComponent implements OnInit {
 
-  queue = {};
-  passengers = {};
+  queue: any = {};
+  passengers: any = {};
 
   constructor(private mongoService: MongolabService) {}
 
@@ -21,7 +21,7 @@ export class AirlineTvDisplayComponent implements OnInit {
     });
   }
 
-  mapByRecloc(data: any[]) {
+  mapByRecloc(data) {
     let result = {};
     for (let i = 0; i < data.length; ++i) {
       let pax = data[i];

@@ -9,3 +9,16 @@
   .errorPanel {
     text-align: center;
   }
+
+  .alldone {
+  font-size: 1.5em;
+  padding-top: 2em;
+  }
+
+  .icon-green {
+  color: #4CAF50;
+  }
+
+  .text-large {
+  font-size: 2em;
+  }

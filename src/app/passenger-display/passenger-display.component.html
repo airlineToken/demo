@@ -1,15 +1,31 @@
 <div *ngIf="!unknownPnr">
-<div class="container-fluid passenger-view" *ngIf="this.passengerDetails.rank">
-  <h2 class="row">You're all set, {{passengerDetails.firstName}} {{passengerDetails.lastName}}!</h2>
-  <div class="row"><img src="assets/qrcode.png" class="img-thumbnail" /></div>
-  <div class="queue-details row">You hold ticket #{{passengerDetails.rank}}.</div>
-  <div class="queue-details row" *ngIf="queue.lastServedRank > 0">We are currently serving ticket #{{queue.lastServedRank}}.</div>
-  <div class="queue-details row" *ngIf="queue.lastServedRank <= 0">Our counters will open shortly.</div>
-</div>
+  <div class="container-fluid passenger-view" *ngIf="this.passengerDetails.rank">
 
-<div class="container-fluid passenger-view" *ngIf="!this.passengerDetails.rank">
-  <h2 class="row" *ngIf="passengerDetails.firstName">{{passengerDetails.firstName}} {{passengerDetails.lastName}}, we are getting things ready for you...</h2>
-  <div class="row"><img src="assets/load.gif"  /></div>
+    <div *ngIf="this.passengerDetails.rank > queue.lastServedRank">
+      <h2 class="row">You're all set, {{passengerDetails.firstName}} {{passengerDetails.lastName}}!</h2>
+      <div class="row"><img src="assets/qrcode.png" class="img-thumbnail" /></div>
+      <div class="queue-details row">You hold ticket #{{passengerDetails.rank}}.</div>
+      <div class="queue-details row" *ngIf="queue.lastServedRank > 0">We are currently serving ticket #{{queue.lastServedRank}}.</div>
+      <div class="queue-details row" *ngIf="queue.lastServedRank <= 0">Our counters will open shortly.</div>
+    </div>
+
+    <div *ngIf="this.passengerDetails.rank <= queue.lastServedRank">
+      <div *ngIf="queue.done[this.passengerDetails.recLoc]" class="alldone">
+        Thank you for using our Digital Queuing service.
+        We hope you had a pleasant experience.
+        <br/><span class="icon-green text-large glyphicon glyphicon-ok"></span>
+      </div>
+      <div *ngIf="!queue.done[this.passengerDetails.recLoc]">
+        <h2 class="row">It's time, {{passengerDetails.firstName}} {{passengerDetails.lastName}}!</h2>
+        <div>Please proceed to counter {{counterName}}</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="container-fluid passenger-view" *ngIf="!this.passengerDetails.rank">
+    <h2 class="row" *ngIf="passengerDetails.firstName">{{passengerDetails.firstName}} {{passengerDetails.lastName}}, we are getting things ready for you...</h2>
+    <div class="row"><img src="assets/load.gif"  /></div>
   </div>
 </div>
 
