@@ -31,8 +31,9 @@ export class PassengerDisplayComponent implements OnInit {
         }
 
         this.passengerDetails = filtered[0];
+        let done = this.queue.done[this.recLoc];
 
-        if (!this.passengerDetails.rank) {
+        if (!this.passengerDetails.rank && !done) {
         Observable.timer(3000).subscribe(data => {
           this.addPassengerToQueue(this.passengerDetails, this.queue);
         });

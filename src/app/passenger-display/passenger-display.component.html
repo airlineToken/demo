@@ -20,6 +20,8 @@
       <div *ngIf="!queue.done[this.passengerDetails.recLoc]">
         <h2 class="row">It's time, {{passengerDetails.firstName}} {{passengerDetails.lastName}}!</h2>
         <div>Please proceed to counter {{counterName}}</div>
+        <div class="row"><img src="assets/qrcode.png" class="img-thumbnail" /></div>
+        <div class="queue-details row">You hold ticket #{{passengerDetails.rank}}.</div>
       </div>
     </div>
 

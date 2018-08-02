@@ -52,7 +52,7 @@ export class AgentDisplayComponent implements OnInit {
         this.queue.lastServedRank = nextRank;
 
         // Get next pax details
-        this.mongoService.getPassengerDetails().subscribe(data => {
+        this.mongoService.getPassengerDetails().subscribe((data: any) => {
 	        let filtered = data.filter(pax => {
 	          return pax.rank === nextRank;
 	        });
@@ -114,14 +114,15 @@ export class AgentDisplayComponent implements OnInit {
     }
     this.queue.currentlyServed.splice(index, 1);
 
-    // Add the pax to the queue again
+    // Update pax rank to last
     var newRank = this.queue.lastInsertedRank +1;
-
+    for (let i = 0; i < this.queue.queue.length; ++i) {
+        if (this.queue.queue[i].recLoc === this.currentPassenger.recLoc) {
+          this.queue.queue[i].rank = newRank
+          break;
+        }
+    }
     this.queue.lastInsertedRank = newRank;
-    this.queue.queue.push({
-        rank: newRank,
-        recLoc: this.currentPassenger.recLoc
-    });
     this.currentPassenger.rank = newRank;
 
     this.mongoService.patchPassenger(this.currentPassenger).subscribe(data => {
