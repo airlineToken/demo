@@ -1,0 +1,13 @@
+#headerRow{
+    width:100%
+}
+
+.col{
+    width:33%;
+    float:left;
+}
+
+.queue-display{
+    box-align:center;
+    width:70%;
+}

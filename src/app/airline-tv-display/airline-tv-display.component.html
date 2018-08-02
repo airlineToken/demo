@@ -1,0 +1,12 @@
+<div class="queue-display" id="queueDisplay">
+  <div id="row headerRow">
+      <div class="col tokenId">Token ID</div>
+      <div class="col waitTime">Wait Time</div>
+      <div class="col counterNumber">Counter Number</div>  
+  </div>
+  <div class="row passengerRecord" *ngFor="let record of records">
+      <div class="col tokenId">{{record.recLoc}}</div>
+      <div class="col waitTime">{{record.email}}</div>
+      <div class="col counterNumber">12</div>      
+  </div>
+</div>
