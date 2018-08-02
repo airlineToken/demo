@@ -1,9 +1,19 @@
 .queue-display{
     text-align:center;
-    max-width: 30em;
     margin-top: 2em;
+    font-size: 1.4em;
+    margin: 2em;
 }
 
 .headerRow {
   background-color: #c2c2c2;
+  line-height: 3em;
+}
+.item {
+  padding: 0.5em 0;
+}
+
+div.odd {
+  background-color: #03A9F455;
+
 }

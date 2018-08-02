@@ -13,11 +13,15 @@ export class AirlineTvDisplayComponent implements OnInit {
   queue: any = {};
   passengers: any = {};
 
+  aggregatedData: any = [];
+
   constructor(private mongoService: MongolabService) {}
 
-  refreshQueueDetails() {
+  refreshData() {
     this.mongoService.getQueueDetails().subscribe(data => {
       this.queue = data[0];
+
+      this.refreshPassengerDetails();
     });
   }
 
@@ -34,18 +38,37 @@ export class AirlineTvDisplayComponent implements OnInit {
   refreshPassengerDetails() {
     this.mongoService.getPassengerDetails().subscribe(data => {
         this.passengers = this.mapByRecloc(data);
+
+        this.buildAggregate();
     });
   }
 
-  ngOnInit() {
-    this.refreshQueueDetails();
-    Observable.interval(5000).subscribe(data => {
-        this.refreshQueueDetails();
-    });
+  buildAggregate() {
+    this.aggregatedData.length = 0;
 
-    this.refreshPassengerDetails();
+    let counterByRecloc = {};
+    for (let i = 0; i < this.queue.currentlyServed.length; ++i) {
+      if (this.queue.currentlyServed[i].recLoc) {
+        counterByRecloc[this.queue.currentlyServed[i].recLoc] = this.queue.currentlyServed[i].counterName;
+      }
+    }
+
+    for (let i = 0; i < this.queue.queue.length; ++i) {
+        if (!this.queue.done[this.queue.queue[i].recLoc]) {
+            this.aggregatedData.push({
+                rank: this.queue.queue[i].rank,
+                recLoc: this.queue.queue[i].recLoc,
+                paxData: this.passengers[this.queue.queue[i].recLoc],
+                counterName: counterByRecloc[this.queue.queue[i].recLoc]
+            });
+        }
+    }
+  }
+
+  ngOnInit() {
+    this.refreshData();
     Observable.interval(5000).subscribe(data => {
-        this.refreshPassengerDetails();
+        this.refreshData();
     });
   }
 
