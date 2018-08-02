@@ -5,7 +5,9 @@
       <h2 class="row">You're all set, {{passengerDetails.firstName}} {{passengerDetails.lastName}}!</h2>
       <div class="row"><img src="assets/qrcode.png" class="img-thumbnail" /></div>
       <div class="queue-details row">You hold ticket #{{passengerDetails.rank}}.</div>
-      <div class="queue-details row" *ngIf="queue.lastServedRank > 0">We are currently serving ticket #{{queue.lastServedRank}}.</div>
+      <div class="queue-details row" *ngIf="queue.lastServedRank > 0">We are currently serving ticket #{{queue.lastServedRank}}.
+      <div>Your waiting time is estimated to {{(passengerDetails.rank - queue.lastServedRank)*5}}mn.</div>
+      </div>
       <div class="queue-details row" *ngIf="queue.lastServedRank <= 0">Our counters will open shortly.</div>
     </div>
 
