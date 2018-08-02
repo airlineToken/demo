@@ -85,7 +85,7 @@ export class AgentDisplayComponent implements OnInit {
     let index = -1;
     for (let i = 0; i < this.queue.currentlyServed.length; ++i) {
 	    if (this.queue.currentlyServed[i].counterName === this.counterName) {
-	      index = -1;
+	      index = i;
 	      break;
 	    }
     }
