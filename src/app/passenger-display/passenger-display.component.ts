@@ -11,18 +11,26 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['./passenger-display.component.css']
 })
 export class PassengerDisplayComponent implements OnInit {
-  recLoc = 'HUEHUE';
+  recLoc = '';
   passengerDetails: any = {};
   queue: any = {};
   currentlyServedRank = '?';
+  unknownPnr: boolean = false;
 
   constructor(private mongoService: MongolabService, private route: ActivatedRoute) {}
 
   refreshPassengerDetails() {
     this.mongoService.getPassengerDetails().subscribe(data => {
-        this.passengerDetails = data.filter(pax => {
+        let filtered = data.filter(pax => {
           return pax.recLoc === this.recLoc;
-        })[0];
+        });
+
+        if (filtered.length == 0) {
+          this.unknownPnr = true;
+          return;
+        }
+
+        this.passengerDetails = filtered[0];
 
         if (!this.passengerDetails.rank) {
         Observable.timer(3000).subscribe(data => {
