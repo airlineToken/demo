@@ -42,6 +42,10 @@ export class PassengerDisplayComponent implements OnInit {
     var newRank = queue.lastInsertedRank +1;
 
     queue.lastInsertedRank = newRank;
+    queue.queue.push({
+        rank: newRank,
+        recLoc: passenger.recLoc
+    });
     passenger.rank = newRank;
 
     this.mongoService.patchPassenger(passenger).subscribe(data => {
