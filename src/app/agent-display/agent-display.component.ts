@@ -102,6 +102,44 @@ export class AgentDisplayComponent implements OnInit {
     });
   }
 
+  noshow() {
+    // Push the pax back at the end of the queue
+    // Remove the customer from the serviced ones
+    let index = -1;
+    for (let i = 0; i < this.queue.currentlyServed.length; ++i) {
+        if (this.queue.currentlyServed[i].counterName === this.counterName) {
+          index = -1;
+          break;
+        }
+    }
+    this.queue.currentlyServed.splice(index, 1);
+
+    // Add the pax to the queue again
+    var newRank = this.queue.lastInsertedRank +1;
+
+    this.queue.lastInsertedRank = newRank;
+    this.queue.queue.push({
+        rank: newRank,
+        recLoc: this.currentPassenger.recLoc
+    });
+    this.currentPassenger.rank = newRank;
+
+    this.mongoService.patchPassenger(this.currentPassenger).subscribe(data => {
+      console.log("Put pax response after noshow:");
+      console.dir(data);
+    });
+
+    this.currentPassenger = null;
+    this.mongoService.patchQueue(this.queue).subscribe(data => {
+      console.log("Put queue response after noshow:");
+      console.dir(data);
+
+        Observable.interval(2000).subscribe(data => {
+          this.refreshQueueDetails();
+        });
+    });
+  }
+
   ngOnInit() {
     this.route.params.subscribe( params => {
       this.counterName = params.counterName;
